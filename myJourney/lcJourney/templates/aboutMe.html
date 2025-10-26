@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me</title>
+  <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+
+  <header>
+    <h1>About Me</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'about_me' %}" class="active">About Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <div class="about-container">
+      {% if about %}
+        {% if about.photo %}
+          <img src="{{ about.photo.url }}" alt="{{ about.name }}" class="profile-img">
+        {% else %}
+          <img src="{% static 'images/photo_2025-10-26_01-28-48.jpg' %}" alt="Default Photo" class="profile-img">
+        {% endif %}
+
+        <div class="about-text">
+          <h2>Hello! I’m {{ about.name }}</h2>
+          <p>{{ about.bio }}</p>
+        </div>
+      {% else %}
+        <div class="about-text">
+          <h2>About information not available</h2>
+          <p>Please add your bio and photo in the Django admin panel.</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Lungten Choden — All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

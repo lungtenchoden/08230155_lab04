@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Learning Journey</title>
+  <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+
+  <header>
+    <h1>My Learning Journey</h1>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index' %}" class="active">Home</a></li>
+        <li><a href="{% url 'about_me' %}">About Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="journey">
+    <h2>Welcome to My Learning Journey</h2>
+    <p>
+      Here, I highlight the skills I’ve gained, the projects I’ve built, and the milestones that reflect my journey. 
+      Explore how each challenge has shaped my growth and fueled my achievements.
+
+    </p>
+    
+
+    <!-- Dynamic Learning Topics -->
+    <div class="topics-section">
+
+      <h2>📚 Learning Topics</h2>
+
+      {% if topics %}
+        <div class="timeline">
+          {% for topic in topics %}
+            <div class="timeline-item">
+              <h3>{{ topic.title }}</h3>
+              <p>{{ topic.description }}</p>
+              <p class="dates">
+                Started: {{ topic.date_started }} 
+                {% if topic.date_completed %}
+                  | Completed: {{ topic.date_completed }}
+                {% endif %}
+              </p>
+
+              <!-- Show related milestones -->
+              {% if topic.milestones.all %}
+                <ul class="milestones">
+                  {% for milestone in topic.milestones.all %}
+                    <li>
+                      <strong>{{ milestone.title }}</strong> — {{ milestone.description }}  
+                      <small>(Achieved on {{ milestone.achieved_on }})</small>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No learning topics added yet.</p>
+      {% endif %}
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2025 Lungten Choden — All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
